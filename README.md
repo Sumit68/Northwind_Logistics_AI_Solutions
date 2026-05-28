@@ -3,9 +3,6 @@
 AI-assisted expense pre-review for finance reviewers: ingest receipts and trip context, surface per-line compliance verdicts with cited policy quotes, support human overrides, and answer ad-hoc policy questions with **grounded citations** (or refusal when out of scope). **Humans always make the final decision.**
 
 **Live URL:** _Deploy to Railway/Render — see [PLAN.md](PLAN.md)_
-
-**Implementation plan:** [PLAN.md](PLAN.md)
-
 ---
 
 ## How to run locally
