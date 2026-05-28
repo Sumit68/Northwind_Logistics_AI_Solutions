@@ -131,7 +131,7 @@ Output is JSON on stdout (`passed`, `total`, `results[]`). Exit code `0` only if
 | `STORAGE_PATH` | No | Uploaded receipt storage |
 | `REVIEW_MAX_CONCURRENCY` | No | Max parallel receipt extractions + policy LLM calls (default `4`) |
 
-**Demo screenshots:** see [`results/`](results/) for UI examples (history, policy Q&A, flagged/compliant receipts).
+**Demo screenshots:** [end of README](#demo-screenshots) (files in [`results/`](results/)).
 
 ---
 
@@ -619,3 +619,37 @@ case_study/
 ## License
 
 TBD (case study submission).
+
+---
+
+## Demo screenshots
+
+UI examples from a local run (`docker compose up`). Screenshots live in [`results/`](results/).
+
+### Submission history
+
+![Submission history — list of expense submissions](results/01-submission-history.png)
+
+### Policy Q&A — dinner cap
+
+![Policy Q&A — dinner per-person cap with cited policy](results/02-policy-qa-dinner-cap.png)
+
+### Flagged receipts — TEP-009 (international)
+
+![Flagged receipts — international trip / grade gate (TEP-009)](results/04-receipts-flagged-tep009-international.png)
+
+### Compliant submission — flight (James Walker)
+
+![Compliant submission — flight receipt passes review](results/05-submission-james-walker-compliant-flight.png)
+
+### Flagged receipt — Lyft (TEP-009)
+
+![Flagged receipt — Lyft ride flagged under TEP-009](results/06-receipt-flagged-lyft-tep009.png)
+
+### Submission flagged — Priya Patel trip
+
+![Submission — trip-level flag for Priya Patel](results/07-submission-priya-patel-trip-flagged.png)
+
+### Flagged receipts — TEP-002 (meal cap)
+
+![Flagged receipts — meal over per-person cap (TEP-002)](results/08-receipts-flagged-tep002-meal-cap.png)
