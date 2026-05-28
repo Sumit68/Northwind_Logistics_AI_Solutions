@@ -1,0 +1,66 @@
+{
+  "doc_id": "TEP-009",
+  "title": "Employee Grades and Approval Authority",
+  "grade_ladder": [
+    {"grade": 1, "title": "Associate / Coordinator", "self_travel_limit": 0, "direct_report_limit": 0},
+    {"grade": 2, "title": "Senior Associate", "self_travel_limit": 0, "direct_report_limit": 0},
+    {"grade": 3, "title": "Specialist", "self_travel_limit": 500, "direct_report_limit": 0},
+    {"grade": 4, "title": "Senior Specialist", "self_travel_limit": 1000, "direct_report_limit": 0},
+    {"grade": 5, "title": "Manager", "self_travel_limit": 0, "direct_report_limit": 2000},
+    {"grade": 6, "title": "Senior Manager", "self_travel_limit": 0, "direct_report_limit": 3000},
+    {"grade": 7, "title": "Director", "self_travel_limit": 0, "direct_report_limit": 5000},
+    {"grade": 8, "title": "Senior Director", "self_travel_limit": 0, "direct_report_limit": 10000},
+    {"grade": 9, "title": "Vice President", "self_travel_limit": 0, "direct_report_limit": 25000},
+    {"grade": 10, "title": "SVP / C-suite", "self_travel_limit": 0, "direct_report_limit": null}
+  ],
+  "rules": [
+    {
+      "rule_id": "tep001_submission_approval",
+      "section": "§3.1",
+      "check_type": "grade_submission_approval_required",
+      "violation_status": "flagged",
+      "source_quote": "Submission approval thresholds per TEP-001 §4 are enforced using the grade ladder in §2."
+    },
+    {
+      "rule_id": "self_travel_limit_exceeded",
+      "section": "§2",
+      "check_type": "grade_self_travel_limit",
+      "violation_status": "flagged",
+      "source_quote": "Each grade defines maximum self-approved travel spend (e.g., Grade 4 — $1,000 own travel)."
+    },
+    {
+      "rule_id": "vp_approval_grade_9",
+      "section": "§3.2",
+      "check_type": "grade_role_definition",
+      "role": "vp",
+      "min_grade": 9,
+      "violation_status": "compliant",
+      "source_quote": "VP approval means approval from a Grade 9 employee or above."
+    },
+    {
+      "rule_id": "director_approval_grade_7",
+      "section": "§3.3",
+      "check_type": "grade_role_definition",
+      "role": "director",
+      "min_grade": 7,
+      "violation_status": "compliant",
+      "source_quote": "Director approval means approval from a Grade 7 employee or above."
+    },
+    {
+      "rule_id": "manager_approval_direct_manager",
+      "section": "§3.4",
+      "check_type": "grade_role_definition",
+      "role": "manager",
+      "violation_status": "compliant",
+      "source_quote": "Manager approval means the employee's direct manager with authority for the relevant amount."
+    },
+    {
+      "rule_id": "international_requires_vp_grade",
+      "section": "§2",
+      "check_type": "grade_international_vp_required",
+      "min_grade": 9,
+      "violation_status": "flagged",
+      "source_quote": "Grade 9 Vice President is the required approver for international travel."
+    }
+  ]
+}

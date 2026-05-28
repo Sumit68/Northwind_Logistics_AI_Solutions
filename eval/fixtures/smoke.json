@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "description": "Quick smoke (4 cases). All Denver receipts: see denver.json",
+  "cases": [
+    {
+      "id": "denver_meal",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "04_dinner_mercantile.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "alinea_dinner",
+      "submission_folder": "03_dinner_over_cap",
+      "receipt_file": "04_dinner_alinea.pdf",
+      "trip_context": {
+        "trip_purpose": "Vendor site visit at Midwest Distribution Center, Chicago",
+        "trip_dates": "2025-05-06 to 2025-05-07",
+        "grade": 4
+      },
+      "expected_status": "flagged",
+      "expected_policy_refs": ["TEP-002§2"]
+    },
+    {
+      "id": "franklin_alcohol",
+      "submission_folder": "04_alcohol_solo_travel",
+      "receipt_file": "05_dinner_franklin.pdf",
+      "trip_context": {
+        "trip_purpose": "Solo carrier research trip — meeting potential regional partners in Austin",
+        "trip_dates": "2025-03-18 to 2025-03-20",
+        "grade": 6
+      },
+      "expected_status": "rejected",
+      "expected_policy_refs": ["TEP-003§3.1"]
+    },
+    {
+      "id": "hyatt_lodging",
+      "submission_folder": "05_receipt_mismatch",
+      "receipt_file": "02_hyatt_seattle.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly QBR with PNW client account",
+        "trip_dates": "2025-02-11 to 2025-02-13",
+        "grade": 5
+      },
+      "expected_status": "flagged",
+      "expected_policy_refs": ["TEP-004§3"]
+    }
+  ]
+}

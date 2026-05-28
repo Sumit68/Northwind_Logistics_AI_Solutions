@@ -1,0 +1,95 @@
+{
+  "doc_id": "TEP-014",
+  "title": "Conference Attendance Policy",
+  "rules": [
+    {
+      "rule_id": "conference_preapproval",
+      "section": "§2.1",
+      "check_type": "conference_requires_documentation",
+      "violation_status": "flagged",
+      "source_quote": "Conference attendance must be pre-approved in writing by the employee's manager."
+    },
+    {
+      "rule_id": "registration_fees",
+      "section": "§3.1",
+      "check_type": "category_allowed",
+      "allowed_categories": ["conference"],
+      "violation_status": "compliant",
+      "source_quote": "Conference registration fees are reimbursable at the standard attendee rate."
+    },
+    {
+      "rule_id": "premium_pass",
+      "section": "§3.2",
+      "check_type": "keyword_flag",
+      "keywords": ["vip pass", "all-access", "executive track"],
+      "violation_status": "flagged",
+      "source_quote": "Premium passes are reimbursable only when they provide demonstrable business value not available at the standard rate."
+    },
+    {
+      "rule_id": "conference_travel_lodging_framework",
+      "section": "§4",
+      "check_type": "conference_travel_lodging_framework",
+      "violation_status": "compliant",
+      "source_quote": "Conference travel and lodging are reimbursed under TEP-004 (Lodging), TEP-005 (Air), and TEP-006 (Ground Transportation)."
+    },
+    {
+      "rule_id": "conference_cost_director_vp_thresholds",
+      "section": "§2.2",
+      "check_type": "conference_cost_approval_thresholds",
+      "director_threshold": 5000,
+      "vp_threshold": 10000,
+      "violation_status": "flagged",
+      "source_quote": "Conference total >$5,000 requires Director approval; >$10,000 or international requires VP approval."
+    },
+    {
+      "rule_id": "early_bird_expected",
+      "section": "§3.3",
+      "check_type": "conference_early_bird_expected",
+      "violation_status": "needs_review",
+      "source_quote": "Early-bird registration should be used when planned sufficiently in advance."
+    },
+    {
+      "rule_id": "meals_included_not_reimbursable",
+      "section": "§5.1",
+      "check_type": "conference_included_meals_exclusion",
+      "violation_status": "flagged",
+      "source_quote": "Meals included in conference registration are not separately reimbursable."
+    },
+    {
+      "rule_id": "offsite_dinner_not_auto_entertainment",
+      "section": "§5.3",
+      "check_type": "conference_offsite_dinner_classification",
+      "violation_status": "needs_review",
+      "source_quote": "Off-site dinners with conference colleagues are not client entertainment unless external clients/prospects attend."
+    },
+    {
+      "rule_id": "conference_client_attendance_caps",
+      "section": "§6.1",
+      "check_type": "conference_client_attendance_caps",
+      "violation_status": "flagged",
+      "source_quote": "Conference attendance with clients follows TEP-002 §4 entertainment caps and VP approval conditions."
+    },
+    {
+      "rule_id": "conference_trip_extension_compare_quote",
+      "section": "§7.2",
+      "check_type": "conference_extension_compare_quote",
+      "violation_status": "needs_review",
+      "source_quote": "If personal extension increases airfare, comparison quote is required and difference is employee responsibility."
+    },
+    {
+      "rule_id": "conference_deliverables_30_days",
+      "section": "§8.1",
+      "check_type": "conference_deliverables_30_days",
+      "days": 30,
+      "violation_status": "needs_review",
+      "source_quote": "Attendees are expected to share conference takeaways within 30 days of return."
+    },
+    {
+      "rule_id": "conference_cancellation_legitimate",
+      "section": "§9.2",
+      "check_type": "conference_cancellation_legitimate",
+      "violation_status": "needs_review",
+      "source_quote": "Non-refundable cancellation costs are absorbed only for legitimate reasons (manager decision, illness, business priority change)."
+    }
+  ]
+}

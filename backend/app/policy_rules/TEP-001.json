@@ -1,0 +1,47 @@
+{
+  "doc_id": "TEP-001",
+  "title": "Travel & Expense Policy — Overview",
+  "rules": [
+    {
+      "rule_id": "business_purpose",
+      "section": "§3.1",
+      "check_type": "requires_trip_purpose",
+      "violation_status": "flagged",
+      "source_quote": "Every reimbursable expense must have a clear and documented business purpose."
+    },
+    {
+      "rule_id": "timeliness_30_days",
+      "section": "§3.4",
+      "check_type": "expense_timeliness_days",
+      "threshold": 30,
+      "violation_status": "flagged",
+      "source_quote": "Expense reports must be submitted within 30 days of the end of the trip."
+    },
+    {
+      "rule_id": "approval_director",
+      "section": "§4.2",
+      "check_type": "submission_total_approval",
+      "min_total": 1000.01,
+      "max_total": 5000,
+      "approval_level": "director",
+      "violation_status": "flagged",
+      "source_quote": "Expenses $1,000–$5,000: Director approval required."
+    },
+    {
+      "rule_id": "approval_vp",
+      "section": "§4.3",
+      "check_type": "submission_total_approval",
+      "min_total": 5000.01,
+      "approval_level": "vp",
+      "violation_status": "flagged",
+      "source_quote": "Expenses above $5,000: VP approval required."
+    },
+    {
+      "rule_id": "approval_cumulative",
+      "section": "§4.4",
+      "check_type": "submission_approval_note",
+      "violation_status": "compliant",
+      "source_quote": "Approval thresholds are cumulative per submission, not per line item."
+    }
+  ]
+}

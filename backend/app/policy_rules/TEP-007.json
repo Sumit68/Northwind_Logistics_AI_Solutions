@@ -1,0 +1,47 @@
+{
+  "doc_id": "TEP-007",
+  "title": "Receipt Requirements Policy",
+  "rules": [
+    {
+      "rule_id": "under_25_receipt_waiver",
+      "section": "§4.1",
+      "check_type": "receipt_under_threshold_waiver",
+      "threshold": 25,
+      "violation_status": "compliant",
+      "source_quote": "Individual expenses of less than $25 do not require a receipt."
+    },
+    {
+      "rule_id": "receipt_required_exceptions",
+      "section": "§4.1",
+      "check_type": "receipt_waiver_exceptions",
+      "threshold": 25,
+      "tip_exception_amount": 20,
+      "violation_status": "flagged",
+      "source_quote": "Under-$25 waiver does not apply to alcohol, tips over $20, or cash advance disbursements — receipts required regardless of amount."
+    },
+    {
+      "rule_id": "receipt_matching",
+      "section": "§6.1",
+      "check_type": "requires_itemization",
+      "threshold": 25,
+      "violation_status": "flagged",
+      "source_quote": "Each receipt submitted must match the line item it supports."
+    },
+    {
+      "rule_id": "amount_mismatch",
+      "section": "§6.2",
+      "check_type": "amount_consistency",
+      "tolerance_percent": 2,
+      "violation_status": "flagged",
+      "source_quote": "Where the receipt amount differs materially from the amount claimed, the line item will be flagged."
+    },
+    {
+      "rule_id": "missing_receipt",
+      "section": "§4",
+      "check_type": "extraction_confidence_min",
+      "threshold": 0.6,
+      "violation_status": "needs_review",
+      "source_quote": "Receipts are required except as provided under Missing Receipt Affidavit (TEP-007 §4.2)."
+    }
+  ]
+}

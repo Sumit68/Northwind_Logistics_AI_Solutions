@@ -1,0 +1,93 @@
+{
+  "doc_id": "SEC-301",
+  "title": "Travel Risk and Security Protocol",
+  "rules": [
+    {
+      "rule_id": "scope_international_only",
+      "section": "§2",
+      "check_type": "sec301_scope_international",
+      "violation_status": "compliant",
+      "source_quote": "This protocol applies to international business travel and selected elevated-risk domestic travel."
+    },
+    {
+      "rule_id": "high_risk_destination",
+      "section": "§4.2",
+      "check_type": "sec301_high_tier_requirements",
+      "violation_status": "flagged",
+      "source_quote": "High-tier travel requires VP approval, Risk briefing, International SOS confirmation, and itinerary submission."
+    },
+    {
+      "rule_id": "extreme_tier_prohibited",
+      "section": "§4.3",
+      "check_type": "sec301_extreme_tier_prohibited",
+      "violation_status": "rejected",
+      "source_quote": "Extreme-tier travel is generally prohibited and requires CFO and General Counsel approval with documented business necessity."
+    },
+    {
+      "rule_id": "international_sos_enrollment",
+      "section": "§3.1",
+      "check_type": "sec301_international_sos_enrollment",
+      "violation_status": "needs_review",
+      "source_quote": "International travelers are enrolled in International SOS based on Concur bookings."
+    },
+    {
+      "rule_id": "visa_immunization_prep",
+      "section": "§5",
+      "check_type": "sec301_visa_immunization_prep",
+      "violation_status": "needs_review",
+      "source_quote": "Required visas and immunizations should be obtained in advance; maintain passport and itinerary documentation."
+    },
+    {
+      "rule_id": "high_tier_lodging_transport",
+      "section": "§6.2-§6.3",
+      "check_type": "sec301_high_tier_lodging_transport",
+      "violation_status": "flagged",
+      "source_quote": "High-tier destinations require vetted lodging and pre-arranged vetted ground transportation."
+    },
+    {
+      "rule_id": "incident_contact_international_sos",
+      "section": "§7",
+      "check_type": "sec301_incident_response",
+      "violation_status": "needs_review",
+      "source_quote": "For medical/security incidents, contact International SOS promptly and notify Risk Management."
+    },
+    {
+      "rule_id": "sanctioned_countries",
+      "section": "§9.1",
+      "check_type": "sec301_sanctioned_destination",
+      "keywords": ["iran", "north korea", "syria", "cuba", "crimea", "russia", "ukraine region"],
+      "violation_status": "rejected",
+      "source_quote": "Travel to countries under U.S. economic sanctions is prohibited absent an OFAC license."
+    },
+    {
+      "rule_id": "security_vpn_required",
+      "section": "§8.3",
+      "check_type": "sec301_vpn_required",
+      "violation_status": "flagged",
+      "source_quote": "Use VPN for all internet access while abroad."
+    },
+    {
+      "rule_id": "border_search_data_minimization",
+      "section": "§8.2",
+      "check_type": "sec301_border_device_guidance",
+      "violation_status": "needs_review",
+      "source_quote": "Travelers should assume border device inspection and avoid carrying sensitive data."
+    },
+    {
+      "rule_id": "returning_traveler_debrief",
+      "section": "§11.1",
+      "check_type": "sec301_returning_traveler_debrief",
+      "days": 5,
+      "violation_status": "needs_review",
+      "source_quote": "After high-tier travel, debrief with Risk Management within 5 business days."
+    },
+    {
+      "rule_id": "post_travel_health_reporting",
+      "section": "§11.2",
+      "check_type": "sec301_post_travel_health_reporting",
+      "days": 14,
+      "violation_status": "needs_review",
+      "source_quote": "If symptoms develop within 14 days of return from advisory destinations, notify HR before office return."
+    }
+  ]
+}

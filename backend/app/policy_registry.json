@@ -1,0 +1,90 @@
+{
+  "policies": [
+    {
+      "doc_id": "TEP-001",
+      "title": "Travel & Expense Overview",
+      "types": ["other"],
+      "receipt_signals": []
+    },
+    {
+      "doc_id": "TEP-002",
+      "title": "Meals and Entertainment",
+      "types": ["meal", "entertainment"],
+      "receipt_signals": ["restaurant", "cafe", "dining", "dinner", "lunch", "breakfast", "bbq", "barbecue", "alinea", "eatery"],
+      "always_with": ["TEP-003"],
+      "always_with_when": "has_alcohol"
+    },
+    {
+      "doc_id": "TEP-003",
+      "title": "Alcohol",
+      "types": ["meal"],
+      "receipt_signals": ["beer", "wine", "bar", "brewery", "hefeweizen"]
+    },
+    {
+      "doc_id": "TEP-004",
+      "title": "Lodging",
+      "types": ["lodging"],
+      "receipt_signals": ["hotel", "marriott", "hyatt", "hilton", "check-in", "nights", "regency"]
+    },
+    {
+      "doc_id": "TEP-005",
+      "title": "Air Travel",
+      "types": ["air"],
+      "receipt_signals": ["airlines", "airline", "flight", "e-ticket", "united", "delta", "american", "southwest", "alaska"]
+    },
+    {
+      "doc_id": "TEP-006",
+      "title": "Ground Transportation",
+      "types": ["ground"],
+      "receipt_signals": ["uber", "lyft", "taxi", "mileage"]
+    },
+    {
+      "doc_id": "TEP-007",
+      "title": "Receipt Requirements",
+      "types": ["other", "meal", "lodging", "air", "ground", "conference"],
+      "receipt_signals": []
+    },
+    {
+      "doc_id": "TEP-008",
+      "title": "Per-Diem Rates",
+      "types": ["other"],
+      "receipt_signals": ["per diem", "per-diem"]
+    },
+    {
+      "doc_id": "TEP-009",
+      "title": "Employee Grades",
+      "types": [],
+      "receipt_signals": []
+    },
+    {
+      "doc_id": "TEP-010",
+      "title": "Corporate Card",
+      "types": ["lodging", "meal", "air", "ground"],
+      "receipt_signals": ["visa", "corporate card"]
+    },
+    {
+      "doc_id": "TEP-012",
+      "title": "Gifts and Entertainment",
+      "types": ["entertainment"],
+      "receipt_signals": ["client entertainment", "external attendee"]
+    },
+    {
+      "doc_id": "TEP-013",
+      "title": "International Travel",
+      "types": ["air", "lodging"],
+      "receipt_signals": ["international", "customs"]
+    },
+    {
+      "doc_id": "TEP-014",
+      "title": "Conference Attendance",
+      "types": ["conference"],
+      "receipt_signals": ["conference", "re:inforce", "registration", "summit"]
+    },
+    {
+      "doc_id": "SEC-301",
+      "title": "Travel Risk and Security",
+      "types": ["other"],
+      "receipt_signals": ["high-risk", "international sos"]
+    }
+  ]
+}

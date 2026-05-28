@@ -1,0 +1,104 @@
+{
+  "doc_id": "TEP-012",
+  "title": "Gifts and Entertainment Policy",
+  "faq": [
+    {
+      "id": "3.3",
+      "scenario": "Gift above $50 cannot be returned",
+      "answer": "If return is impractical (perishable/cultural reasons), accept and transfer to HR for donation or shared distribution."
+    },
+    {
+      "id": "5.3",
+      "scenario": "Third-party event ticket over $50",
+      "answer": "Must be declared; if third party attends with business discussion, treat as entertainment rather than gift."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "client_entertainment_dinner_cap",
+      "section": "§5.1",
+      "check_type": "client_entertainment_cap",
+      "meal_type": "dinner",
+      "threshold": 150,
+      "violation_status": "flagged",
+      "source_quote": "Client entertainment per-person caps are governed by TEP-002 §4."
+    },
+    {
+      "rule_id": "external_attendee_required",
+      "section": "§5.1",
+      "check_type": "requires_external_attendee",
+      "violation_status": "flagged",
+      "source_quote": "Client entertainment requires one or more external attendees documented on the receipt."
+    },
+    {
+      "rule_id": "gifts_received_cash_equivalent",
+      "section": "§3.1",
+      "check_type": "gift_received_cash_equivalent",
+      "cash_equivalent_threshold": 25,
+      "violation_status": "rejected",
+      "source_quote": "Cash and cash equivalents (including gift cards exceeding $25) may never be accepted."
+    },
+    {
+      "rule_id": "gifts_received_single_limit",
+      "section": "§3.2",
+      "check_type": "gift_received_single_source_limit",
+      "single_gift_limit": 50,
+      "annual_limit": 200,
+      "violation_status": "flagged",
+      "source_quote": "Non-cash gifts may be accepted up to $50 per gift and $200 cumulatively per source per calendar year."
+    },
+    {
+      "rule_id": "gifts_received_over_50_return_or_hr",
+      "section": "§3.3",
+      "check_type": "gift_received_over_limit_disposition",
+      "single_gift_limit": 50,
+      "violation_status": "needs_review",
+      "source_quote": "Gifts above $50 must be declined/returned; if return impractical, hand over to HR for donation/shared distribution."
+    },
+    {
+      "rule_id": "promotional_nominal_exemption",
+      "section": "§3.4",
+      "check_type": "gift_promotional_nominal_exempt",
+      "violation_status": "compliant",
+      "source_quote": "Nominal promotional items (e.g., branded pens/notepads/water) are not considered gifts under this policy."
+    },
+    {
+      "rule_id": "client_gift_annual_limit",
+      "section": "§4.1",
+      "check_type": "gift_given_client_annual_limit",
+      "annual_limit": 100,
+      "violation_status": "flagged",
+      "source_quote": "Client gifts are permitted up to $100 per recipient per calendar year."
+    },
+    {
+      "rule_id": "government_official_gifts",
+      "section": "§4.2",
+      "check_type": "gift_government_official_prohibited",
+      "violation_status": "rejected",
+      "source_quote": "Gifts to government/public-sector/state-owned enterprise representatives are prohibited unless General Counsel written approval exists."
+    },
+    {
+      "rule_id": "client_cash_equivalent_prohibited",
+      "section": "§4.3",
+      "check_type": "gift_client_cash_equivalent_prohibited",
+      "violation_status": "rejected",
+      "source_quote": "Cash and cash-equivalent gifts to clients are prohibited under all circumstances."
+    },
+    {
+      "rule_id": "entertainment_family_requires_vp",
+      "section": "§5.2",
+      "check_type": "entertainment_family_vp_approval",
+      "min_grade": 9,
+      "violation_status": "flagged",
+      "source_quote": "Entertainment including spouses/family members requires VP-level approval and clear business rationale."
+    },
+    {
+      "rule_id": "third_party_ticket_declaration",
+      "section": "§5.3",
+      "check_type": "third_party_ticket_declaration",
+      "declaration_threshold": 50,
+      "violation_status": "needs_review",
+      "source_quote": "Tickets from third parties must be declared if face value exceeds $50."
+    }
+  ]
+}

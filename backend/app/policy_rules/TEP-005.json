@@ -1,0 +1,117 @@
+{
+  "doc_id": "TEP-005",
+  "title": "Air Travel Policy",
+  "faq": [
+    {
+      "id": "3.3",
+      "scenario": "Direct vs one-stop within $200",
+      "answer": "Direct flights are preferred when fare delta is less than $200 versus one-stop."
+    },
+    {
+      "id": "6.2",
+      "scenario": "Business trip extended for personal days",
+      "answer": "Only the business-portion airfare is reimbursable; comparison quote should be captured at booking."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "economy_default",
+      "section": "§2.1",
+      "check_type": "flight_class_check",
+      "allowed_classes": ["economy", "main cabin", "coach", "wanna get away", "class v", "class l", "class t"],
+      "violation_status": "flagged",
+      "source_quote": "Economy class is the default for all domestic and short-haul international flights."
+    },
+    {
+      "rule_id": "premium_economy_6h",
+      "section": "§2.2",
+      "check_type": "flight_duration_class",
+      "min_hours": 6,
+      "allowed_classes": ["premium", "premium select", "comfort+", "economy plus"],
+      "violation_status": "compliant",
+      "source_quote": "Premium economy (or equivalent) is permitted on any single flight segment with a scheduled duration of 6 hours or more."
+    },
+    {
+      "rule_id": "business_class_restricted",
+      "section": "§2.3",
+      "check_type": "flight_business_class_restricted",
+      "min_hours": 10,
+      "violation_status": "rejected",
+      "source_quote": "Business class is permitted only on international segments of 10+ hours with prior written VP approval; first class is not reimbursable."
+    },
+    {
+      "rule_id": "flight_concur_booking",
+      "section": "§3.1",
+      "check_type": "flight_concur_booking_required",
+      "violation_status": "flagged",
+      "source_quote": "Flights should be booked through Concur Travel whenever practical."
+    },
+    {
+      "rule_id": "flight_advance_booking_14_days",
+      "section": "§3.2",
+      "check_type": "flight_advance_booking",
+      "threshold_days": 14,
+      "violation_status": "needs_review",
+      "source_quote": "Flights should be booked at least 14 days in advance whenever the trip is planned that far ahead."
+    },
+    {
+      "rule_id": "flight_last_minute_manager_approval",
+      "section": "§3.2",
+      "check_type": "flight_last_minute_approval",
+      "last_minute_days": 7,
+      "violation_status": "flagged",
+      "source_quote": "Last-minute bookings (under 7 days) require manager approval."
+    },
+    {
+      "rule_id": "lowest_reasonable_fare_review",
+      "section": "§3.3",
+      "check_type": "flight_lowest_reasonable_fare",
+      "violation_status": "needs_review",
+      "source_quote": "Employees should book the lowest reasonable fare consistent with business need."
+    },
+    {
+      "rule_id": "second_bag_requires_approval",
+      "section": "§4.1",
+      "check_type": "flight_baggage_limit",
+      "included_bags": 1,
+      "violation_status": "flagged",
+      "source_quote": "First checked bag is reimbursable; second checked bag requires manager approval with business justification."
+    },
+    {
+      "rule_id": "seat_selection_policy",
+      "section": "§4.2",
+      "check_type": "flight_seat_selection",
+      "min_hours_for_extra_legroom": 4,
+      "violation_status": "flagged",
+      "source_quote": "Standard seat selection is reimbursable; extra-legroom requires 4+ hour flight or documented accommodation."
+    },
+    {
+      "rule_id": "change_cancellation_business_reason",
+      "section": "§4.3",
+      "check_type": "flight_change_cancellation_reason",
+      "violation_status": "needs_review",
+      "source_quote": "Change/cancellation fees are reimbursable for documented business reasons, not personal preference."
+    },
+    {
+      "rule_id": "wifi_business_use",
+      "section": "§4.4",
+      "check_type": "flight_wifi_business_use",
+      "violation_status": "needs_review",
+      "source_quote": "In-flight Wi-Fi is reimbursable if used for business purposes."
+    },
+    {
+      "rule_id": "companions_never_reimbursable",
+      "section": "§6.1",
+      "check_type": "flight_companion_not_reimbursable",
+      "violation_status": "rejected",
+      "source_quote": "Travel costs for spouses, family members, or other companions are never reimbursable."
+    },
+    {
+      "rule_id": "personal_extension_quote_required",
+      "section": "§6.2",
+      "check_type": "flight_personal_extension_quote",
+      "violation_status": "needs_review",
+      "source_quote": "For personal itinerary extensions, only business-portion airfare is reimbursable and comparison quote should be obtained at booking."
+    }
+  ]
+}

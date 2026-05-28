@@ -1,0 +1,99 @@
+{
+  "doc_id": "TEP-013",
+  "title": "International Travel Policy",
+  "rules": [
+    {
+      "rule_id": "international_vp_approval",
+      "section": "§2.1",
+      "check_type": "international_trip_approval",
+      "min_grade": 9,
+      "violation_status": "flagged",
+      "source_quote": "All international travel requires advance written approval from a Vice President (Grade 9) or above."
+    },
+    {
+      "rule_id": "foreign_currency",
+      "section": "§7.1",
+      "check_type": "foreign_currency_note",
+      "violation_status": "needs_review",
+      "source_quote": "Expenses incurred in foreign currency should be reported in U.S. dollars at the exchange rate on the date of the transaction."
+    },
+    {
+      "rule_id": "international_approval_lead_time",
+      "section": "§2.2",
+      "check_type": "international_approval_lead_time",
+      "threshold_days": 14,
+      "violation_status": "needs_review",
+      "source_quote": "Approval requests should be submitted at least 14 days prior to departure."
+    },
+    {
+      "rule_id": "high_risk_security_review",
+      "section": "§3.1",
+      "check_type": "international_high_risk_review",
+      "violation_status": "flagged",
+      "source_quote": "High-risk destinations require additional security and Legal review."
+    },
+    {
+      "rule_id": "sanctioned_country_prohibited",
+      "section": "§3.2",
+      "check_type": "international_sanctions_ofac",
+      "violation_status": "rejected",
+      "source_quote": "Travel to sanctioned countries is prohibited absent an OFAC license."
+    },
+    {
+      "rule_id": "tier4_lodging_approval",
+      "section": "§4.1",
+      "check_type": "international_tier4_lodging",
+      "violation_status": "needs_review",
+      "source_quote": "International destinations outside Tier 1-3 are Tier 4 with cap set at trip approval."
+    },
+    {
+      "rule_id": "international_per_diem_state_rate",
+      "section": "§5.1",
+      "check_type": "international_per_diem_state_rate",
+      "violation_status": "needs_review",
+      "source_quote": "International per-diem is set to U.S. Department of State M&IE at trip approval."
+    },
+    {
+      "rule_id": "international_air_stopover_personal",
+      "section": "§6.3",
+      "check_type": "international_stopover_compare_quote",
+      "violation_status": "needs_review",
+      "source_quote": "Personal stopovers are at employee expense; comparison quote required at booking."
+    },
+    {
+      "rule_id": "fx_fee_separate_line_item",
+      "section": "§7.2",
+      "check_type": "international_fx_fee_line_item",
+      "violation_status": "flagged",
+      "source_quote": "Foreign transaction fees are reimbursable as a separate line item, not bundled."
+    },
+    {
+      "rule_id": "intl_cash_advance_finops_approval",
+      "section": "§7.3",
+      "check_type": "international_cash_advance_finops",
+      "violation_status": "flagged",
+      "source_quote": "International-travel cash advances require advance Finance Operations approval."
+    },
+    {
+      "rule_id": "visa_immunization_reimbursable",
+      "section": "§8.1",
+      "check_type": "international_visa_immunization",
+      "violation_status": "compliant",
+      "source_quote": "Visa fees, visa courier fees, and required immunizations are reimbursable."
+    },
+    {
+      "rule_id": "passport_fee_rare_vp",
+      "section": "§8.2",
+      "check_type": "international_passport_fee_vp",
+      "violation_status": "needs_review",
+      "source_quote": "Passport fees are generally not reimbursable; rare business-only cases require VP approval."
+    },
+    {
+      "rule_id": "international_dependents_not_reimbursable",
+      "section": "§10",
+      "check_type": "international_dependents_not_reimbursable",
+      "violation_status": "rejected",
+      "source_quote": "Travel costs for spouses/dependents/companions on international trips are never reimbursable."
+    }
+  ]
+}

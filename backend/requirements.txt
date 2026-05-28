@@ -1,0 +1,17 @@
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+sqlalchemy==2.0.36
+pydantic>=2.12.5,<3
+pydantic-settings>=2.7.0
+python-multipart==0.0.19
+httpx==0.28.1
+pymupdf==1.25.1
+openai==1.57.4
+anthropic>=0.40.0
+google-genai>=1.0.0
+weaviate-client>=4.9.0
+packaging>=24.0
+unstructured-client>=0.40.0
+langgraph>=0.2.60
+langchain-core>=0.3.0
+sentence-transformers>=3.0.0

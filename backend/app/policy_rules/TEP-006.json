@@ -1,0 +1,151 @@
+{
+  "doc_id": "TEP-006",
+  "title": "Ground Transportation Policy",
+  "faq": [
+    {
+      "id": "3.3",
+      "scenario": "Domestic rental insurance",
+      "answer": "Within the US, decline rental CDW/liability coverage offered by rental agency; company policy covers it."
+    },
+    {
+      "id": "5.2",
+      "scenario": "Transit weekly pass",
+      "answer": "Weekly/multi-day pass is reimbursable when economically equivalent to or cheaper than individual fares."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "rideshare_reimbursable",
+      "section": "§2.1",
+      "check_type": "category_allowed",
+      "allowed_categories": ["ground"],
+      "violation_status": "compliant",
+      "source_quote": "Rideshare services (Uber, Lyft) are reimbursable for business travel between airports, hotels, and work sites."
+    },
+    {
+      "rule_id": "taxi_tip_cap",
+      "section": "§2.3",
+      "check_type": "ground_taxi_tip_cap",
+      "threshold_percent": 20,
+      "violation_status": "flagged",
+      "source_quote": "Taxis are reimbursable at metered fare plus reasonable tip (up to 20% of fare)."
+    },
+    {
+      "rule_id": "tip_cap_ground",
+      "section": "§2.3",
+      "check_type": "tip_percent_cap",
+      "threshold_percent": 20,
+      "violation_status": "flagged",
+      "source_quote": "Tips for ground transportation are reimbursable up to 20% of the fare."
+    },
+    {
+      "rule_id": "rental_car_practicality",
+      "section": "§3.1",
+      "check_type": "rental_car_practicality",
+      "violation_status": "needs_review",
+      "source_quote": "Rental cars are appropriate where rideshare/taxi is impractical (multiple stops/days, rural destinations, multiple-passenger transport)."
+    },
+    {
+      "rule_id": "rental_vehicle_category",
+      "section": "§3.2",
+      "check_type": "rental_vehicle_category",
+      "violation_status": "flagged",
+      "source_quote": "Compact/mid-size default; full-size only for 3+ passengers/equipment; premium/luxury/SUV require manager approval."
+    },
+    {
+      "rule_id": "rental_insurance_domestic",
+      "section": "§3.3",
+      "check_type": "rental_insurance_domestic",
+      "violation_status": "flagged",
+      "source_quote": "Within the U.S., decline rental CDW/liability insurance offered by rental company."
+    },
+    {
+      "rule_id": "rental_insurance_international",
+      "section": "§3.3",
+      "check_type": "rental_insurance_international",
+      "violation_status": "needs_review",
+      "source_quote": "Outside the U.S., accept rental company's CDW."
+    },
+    {
+      "rule_id": "rental_fuel_policy",
+      "section": "§3.4",
+      "check_type": "rental_fuel_policy",
+      "violation_status": "flagged",
+      "source_quote": "Pre-paid fuel and rental-company refueling charges are not reimbursable."
+    },
+    {
+      "rule_id": "mileage_rate_2025",
+      "section": "§4.1",
+      "check_type": "personal_vehicle_mileage_rate",
+      "rate_per_mile": 0.67,
+      "violation_status": "flagged",
+      "source_quote": "Personal vehicle mileage reimbursed at IRS standard rate ($0.67/mile for 2025)."
+    },
+    {
+      "rule_id": "commute_not_reimbursable",
+      "section": "§4.2",
+      "check_type": "commute_mileage_not_reimbursable",
+      "violation_status": "rejected",
+      "source_quote": "Commuting mileage (home to regular office) is not reimbursable."
+    },
+    {
+      "rule_id": "mileage_documentation_required",
+      "section": "§4.3",
+      "check_type": "mileage_documentation_required",
+      "violation_status": "needs_review",
+      "source_quote": "Mileage must include start, destination, business purpose, and miles."
+    },
+    {
+      "rule_id": "public_transit_actual_cost",
+      "section": "§5.1",
+      "check_type": "public_transit_actual_cost",
+      "violation_status": "compliant",
+      "source_quote": "Public transit is reimbursable at actual cost."
+    },
+    {
+      "rule_id": "transit_pass_economic_check",
+      "section": "§5.2",
+      "check_type": "transit_pass_economic_check",
+      "violation_status": "needs_review",
+      "source_quote": "Multi-day/weekly transit passes are reimbursable when equivalent to or cheaper than individual fares."
+    },
+    {
+      "rule_id": "parking_actual_cost",
+      "section": "§6.1",
+      "check_type": "parking_actual_cost",
+      "violation_status": "compliant",
+      "source_quote": "Parking at business destinations, hotels, and airports is reimbursable at actual cost."
+    },
+    {
+      "rule_id": "long_term_airport_parking",
+      "section": "§6.2",
+      "check_type": "airport_parking_long_term",
+      "min_days": 3,
+      "violation_status": "needs_review",
+      "source_quote": "Long-term airport parking should be used for trips of 3+ days when cheaper than alternatives."
+    },
+    {
+      "rule_id": "valet_delta_limit",
+      "section": "§6.3",
+      "check_type": "valet_price_delta",
+      "max_delta": 15,
+      "violation_status": "flagged",
+      "source_quote": "Valet reimbursable only when sole option or price difference vs self-parking is under $15."
+    },
+    {
+      "rule_id": "tolls_reimbursable",
+      "section": "§7",
+      "check_type": "tolls_actual_cost",
+      "violation_status": "compliant",
+      "source_quote": "Highway tolls incurred during business travel are reimbursable at actual cost."
+    },
+    {
+      "rule_id": "suv_not_default",
+      "section": "§3.2",
+      "check_type": "keyword_flag",
+      "keywords": ["suv", "limousine", "stretch"],
+      "violation_status": "flagged",
+      "source_quote": "SUV categories are not reimbursable unless required by terrain or capacity, with manager approval."
+    }
+  ]
+}

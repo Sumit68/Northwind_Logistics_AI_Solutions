@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "description": "01_clean_denver — all 8 receipts (brief: largely compliant)",
+  "cases": [
+    {
+      "id": "denver_01_united",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "01_united_airlines.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_02_marriott",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "02_marriott_denver.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_03_uber_hotel",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "03_uber_to_hotel.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_04_dinner_mercantile",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "04_dinner_mercantile.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_05_breakfast_snooze",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "05_breakfast_snooze.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_06_lunch_sushiden",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "06_lunch_sushiden.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_07_dinner_avanti",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "07_dinner_avanti.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    },
+    {
+      "id": "denver_08_uber_airport",
+      "submission_folder": "01_clean_denver",
+      "receipt_file": "08_uber_to_airport.pdf",
+      "trip_context": {
+        "trip_purpose": "Quarterly client review with Mountain Freight Partners in Denver",
+        "trip_dates": "2025-04-14 to 2025-04-16",
+        "grade": 5
+      },
+      "expected_status": "compliant",
+      "expected_policy_refs": []
+    }
+  ]
+}

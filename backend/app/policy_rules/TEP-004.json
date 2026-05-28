@@ -1,0 +1,171 @@
+{
+  "doc_id": "TEP-004",
+  "title": "Lodging Policy",
+  "definitions": {
+    "tier_1_cities": [
+      "new york",
+      "san francisco",
+      "boston",
+      "washington",
+      "los angeles",
+      "seattle",
+      "london",
+      "zurich",
+      "tokyo",
+      "singapore"
+    ],
+    "tier_2_cities": [
+      "chicago",
+      "denver",
+      "atlanta",
+      "austin",
+      "dallas",
+      "houston",
+      "miami",
+      "portland",
+      "san diego",
+      "toronto",
+      "amsterdam",
+      "berlin",
+      "sydney"
+    ],
+    "tier_3_scope": "All other locations within the United States and Canada.",
+    "tier_4_scope": "International destinations not in Tier 1 or Tier 2 require Finance Operations approval at booking."
+  },
+  "faq": [
+    {
+      "id": "8.1",
+      "scenario": "Tier 1 cap exceeded due to citywide event",
+      "answer": "Employee may book the lowest available rate with manager approval and comparable-rate screenshots; otherwise excess over cap is non-reimbursable."
+    },
+    {
+      "id": "8.2",
+      "scenario": "Tier 2 premium hotel selected for convenience",
+      "answer": "Excess over Tier 2 cap is not reimbursable unless lower-cost alternatives were demonstrably unavailable."
+    },
+    {
+      "id": "8.3",
+      "scenario": "Auto-applied room upgrade with no extra charge",
+      "answer": "Reimbursable when no additional charge is incurred."
+    },
+    {
+      "id": "8.4",
+      "scenario": "Short-term rental with cleaning/service fee",
+      "answer": "Mandatory cleaning and service fees count toward the nightly cap."
+    },
+    {
+      "id": "8.5",
+      "scenario": "Mandatory resort fee includes Wi-Fi/gym",
+      "answer": "Mandatory resort/gym fees count toward the room cap."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "concur_booking",
+      "section": "§2.1",
+      "check_type": "concur_booking_required",
+      "violation_status": "flagged",
+      "source_quote": "Lodging should be booked through the Company's approved booking tool (Concur Travel) whenever practical."
+    },
+    {
+      "rule_id": "tier1_cap",
+      "section": "§3",
+      "check_type": "lodging_tier_cap",
+      "tier": 1,
+      "threshold": 350,
+      "cities": ["new york", "san francisco", "boston", "washington", "los angeles", "seattle", "london", "zurich", "tokyo", "singapore"],
+      "violation_status": "flagged",
+      "source_quote": "Tier 1 — $350 per night"
+    },
+    {
+      "rule_id": "tier2_cap",
+      "section": "§3",
+      "check_type": "lodging_tier_cap",
+      "tier": 2,
+      "threshold": 250,
+      "cities": ["chicago", "denver", "atlanta", "austin", "dallas", "houston", "miami", "portland", "san diego", "toronto", "amsterdam", "berlin", "sydney"],
+      "violation_status": "flagged",
+      "source_quote": "Tier 2 — $250 per night"
+    },
+    {
+      "rule_id": "tier3_cap",
+      "section": "§3",
+      "check_type": "lodging_tier_cap",
+      "tier": 3,
+      "threshold": 175,
+      "countries": ["us", "usa", "united states", "canada"],
+      "violation_status": "flagged",
+      "source_quote": "Tier 3 — $175 per night for all other locations in the United States and Canada."
+    },
+    {
+      "rule_id": "tier4_international_requires_approval",
+      "section": "§3",
+      "check_type": "lodging_tier4_approval",
+      "tier": 4,
+      "violation_status": "needs_review",
+      "source_quote": "Tier 4 — International destinations not listed above require Finance Operations approval at booking."
+    },
+    {
+      "rule_id": "advance_booking_14_days",
+      "section": "§2.2",
+      "check_type": "lodging_advance_booking",
+      "threshold_days": 14,
+      "violation_status": "needs_review",
+      "source_quote": "Employees should book lodging at least 14 days in advance whenever the trip is planned that far ahead."
+    },
+    {
+      "rule_id": "last_minute_over_cap_manager_approval",
+      "section": "§2.2",
+      "check_type": "lodging_last_minute_over_cap",
+      "last_minute_days": 7,
+      "violation_status": "flagged",
+      "source_quote": "Last-minute bookings (under 7 days) require manager approval if the rate exceeds the applicable cap."
+    },
+    {
+      "rule_id": "suite_not_default",
+      "section": "§4.1",
+      "check_type": "keyword_flag",
+      "keywords": ["suite", "club level", "penthouse"],
+      "violation_status": "flagged",
+      "source_quote": "Suites, club-level rooms, and view upgrades are not reimbursable unless they are the lowest available rate"
+    },
+    {
+      "rule_id": "lodging_incidentals_never_reimbursable",
+      "section": "§5",
+      "check_type": "lodging_incidental_prohibited",
+      "keywords": ["mini-bar", "minibar", "in-room movie", "video game", "spa", "recreation surcharge", "personal phone call"],
+      "violation_status": "rejected",
+      "source_quote": "Mini-bar, in-room entertainment, spa/recreation surcharges, and personal phone calls are never reimbursable as lodging."
+    },
+    {
+      "rule_id": "laundry_over_5_nights_only",
+      "section": "§5",
+      "check_type": "lodging_laundry_limit",
+      "min_nights": 6,
+      "violation_status": "flagged",
+      "source_quote": "Laundry is reimbursable only for trips exceeding 5 consecutive nights."
+    },
+    {
+      "rule_id": "mandatory_resort_fee_included",
+      "section": "§5",
+      "check_type": "lodging_resort_fee_treatment",
+      "violation_status": "compliant",
+      "source_quote": "Mandatory resort/gym fees count toward the room cap."
+    },
+    {
+      "rule_id": "cancellation_legitimate_reason",
+      "section": "§7.1",
+      "check_type": "lodging_cancellation_reason",
+      "allowed_reasons": ["manager cancelled", "trip cancelled", "illness", "family emergency"],
+      "violation_status": "compliant",
+      "source_quote": "Cancellation charges for legitimate business reasons are reimbursable."
+    },
+    {
+      "rule_id": "no_show_employee_oversight",
+      "section": "§7.2",
+      "check_type": "lodging_no_show_oversight",
+      "violation_status": "rejected",
+      "source_quote": "No-show or late-cancellation charges due to employee oversight are not reimbursable."
+    }
+  ]
+}

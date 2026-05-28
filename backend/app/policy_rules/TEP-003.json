@@ -1,0 +1,79 @@
+{
+  "doc_id": "TEP-003",
+  "title": "Alcohol Policy",
+  "faq": [
+    {
+      "id": "7.1",
+      "scenario": "Solo dinner with a beer",
+      "answer": "Alcohol not reimbursable (§3.1). Food portion reimbursable subject to TEP-002 caps; flag alcohol line items."
+    },
+    {
+      "id": "7.2",
+      "scenario": "Working dinner with Northwind colleagues only",
+      "answer": "Alcohol not reimbursable (§3.2 team-only). Food portion subject to TEP-002 per-person caps."
+    },
+    {
+      "id": "7.3",
+      "scenario": "Client entertainment with VP approval",
+      "answer": "Alcohol up to $50/person; food up to TEP-002 §4 entertainment cap; itemize alcohol separately."
+    },
+    {
+      "id": "7.4",
+      "scenario": "Conference reception drinks in registration",
+      "answer": "No incremental alcohol charge; registration under TEP-014."
+    },
+    {
+      "id": "7.5",
+      "scenario": "Hotel mini-bar wine",
+      "answer": "Never reimbursable (§3.3)."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "solo_travel_alcohol",
+      "section": "§3.1",
+      "check_type": "alcohol_solo_travel",
+      "violation_status": "rejected",
+      "source_quote": "Solo travel. Any alcoholic beverage purchased while traveling on business without external clients present."
+    },
+    {
+      "rule_id": "team_only_alcohol",
+      "section": "§3.2",
+      "check_type": "alcohol_team_only",
+      "violation_status": "rejected",
+      "source_quote": "Team-only meals. Alcohol consumed at meals attended only by Northwind employees is not reimbursable."
+    },
+    {
+      "rule_id": "in_room_alcohol",
+      "section": "§3.3",
+      "check_type": "keyword_flag",
+      "keywords": ["mini-bar", "minibar", "mini bar", "room service", "in-room", "in room"],
+      "violation_status": "rejected",
+      "source_quote": "In-room consumption. Alcohol purchased through hotel room service or mini-bars under any circumstances."
+    },
+    {
+      "rule_id": "client_alcohol_cap",
+      "section": "§2.2",
+      "check_type": "alcohol_amount_cap",
+      "threshold": 50,
+      "violation_status": "flagged",
+      "source_quote": "A per-person alcohol spend that does not exceed $50"
+    },
+    {
+      "rule_id": "alcohol_excess_portion",
+      "section": "§3.4",
+      "check_type": "alcohol_excess_cap",
+      "threshold": 50,
+      "violation_status": "flagged",
+      "source_quote": "The portion of any alcohol charge exceeding the $50 per-person cap defined in Section 2.2."
+    },
+    {
+      "rule_id": "minimal_food_ratio",
+      "section": "§3.5",
+      "check_type": "alcohol_food_ratio_min",
+      "min_food_percent": 50,
+      "violation_status": "flagged",
+      "source_quote": "Alcohol charges where the food portion of the receipt is minimal (less than 50% of the receipt total) will be reviewed for compliance and may be denied."
+    }
+  ]
+}

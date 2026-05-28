@@ -1,0 +1,79 @@
+{
+  "doc_id": "TEP-010",
+  "title": "Corporate Card Policy",
+  "faq": [
+    {
+      "id": "6.1",
+      "scenario": "Fraudulent charge disputed with issuer",
+      "answer": "Cardholder should dispute within issuer window (typically 60 days from statement date) and keep supporting docs."
+    },
+    {
+      "id": "6.2",
+      "scenario": "Disputed charge still on report",
+      "answer": "Mark as 'Disputed — Awaiting Resolution' and include support documentation."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "business_use_only",
+      "section": "§2.1",
+      "check_type": "keyword_flag",
+      "keywords": ["personal", "gift card", "atm cash advance"],
+      "violation_status": "rejected",
+      "source_quote": "The Corporate Card is issued for business expenses only."
+    },
+    {
+      "rule_id": "itemized_required",
+      "section": "§3.1",
+      "check_type": "requires_itemization",
+      "violation_status": "flagged",
+      "source_quote": "All charges must be supported by itemized receipts per TEP-007."
+    },
+    {
+      "rule_id": "prohibited_cash_advance",
+      "section": "§5",
+      "check_type": "corp_card_cash_advance",
+      "violation_status": "rejected",
+      "source_quote": "Cash advances are prohibited on the Corporate Card except where authorized for international travel."
+    },
+    {
+      "rule_id": "prohibited_categories",
+      "section": "§5",
+      "check_type": "corp_card_prohibited_categories",
+      "keywords": [
+        "personal purchase",
+        "gambling",
+        "adult entertainment",
+        "political contribution",
+        "family member",
+        "friend purchase",
+        "third party purchase"
+      ],
+      "violation_status": "rejected",
+      "source_quote": "Personal purchases, gambling/adult entertainment/political contributions, and purchases for family/friends/third parties are prohibited."
+    },
+    {
+      "rule_id": "prohibited_alcohol_violation",
+      "section": "§5",
+      "check_type": "corp_card_alcohol_policy_reference",
+      "violation_status": "flagged",
+      "source_quote": "Alcohol in violation of TEP-003 remains prohibited on Corporate Card."
+    },
+    {
+      "rule_id": "dispute_window",
+      "section": "§6.1",
+      "check_type": "corp_card_dispute_window",
+      "days": 60,
+      "violation_status": "needs_review",
+      "source_quote": "Fraudulent/error charges must be disputed with issuer within the dispute window (typically 60 days)."
+    },
+    {
+      "rule_id": "disputed_charge_marking",
+      "section": "§6.2",
+      "check_type": "corp_card_disputed_marking",
+      "required_status": "Disputed — Awaiting Resolution",
+      "violation_status": "needs_review",
+      "source_quote": "Disputed charges should be marked 'Disputed — Awaiting Resolution' with supporting documentation."
+    }
+  ]
+}

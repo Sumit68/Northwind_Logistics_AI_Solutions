@@ -1,0 +1,119 @@
+{
+  "doc_id": "TEP-002",
+  "title": "Meals and Entertainment Policy",
+  "definitions": {
+    "meal": "Breakfast, lunch, or dinner consumed in the course of business travel or business activity.",
+    "incidental": "Snacks, coffees, and small purchases under $10 are not meals for cap purposes.",
+    "client_entertainment": "A meal or event hosted for external clients, prospects, or business partners for relationship development.",
+    "high_cost_city": "A city in Lodging Tier 1 per TEP-004 §3 (Seattle, Boston, San Francisco, New York, Los Angeles, Washington DC)."
+  },
+  "faq": [
+    {
+      "id": "7.1",
+      "question": "Destination resort breakfast fee bundled in room rate?",
+      "answer": "Mandatory resort-fee breakfast is part of room rate (TEP-004 §4.2). The breakfast itself counts against the breakfast cap; reasonable overages in resort context may be manager-approved."
+    },
+    {
+      "id": "7.2",
+      "question": "Contractor colleague at team off-site — client entertainment?",
+      "answer": "No. Company-paid contractors are not external clients. Apply standard per-meal caps."
+    },
+    {
+      "id": "7.3",
+      "question": "Cash tip beyond receipt?",
+      "answer": "Tip must appear on receipt or Missing Receipt Affidavit (TEP-007 §4.2). Reimbursement remains capped at 20% per Section 3."
+    },
+    {
+      "id": "7.4",
+      "question": "Client paid check — expense at next meeting?",
+      "answer": "Yes, subject to standard caps and approval. Each entertainment event is evaluated independently."
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "meal_cap_breakfast",
+      "section": "§2",
+      "check_type": "meal_total_cap",
+      "meal_type": "breakfast",
+      "threshold": 25,
+      "violation_status": "flagged",
+      "source_quote": "Breakfast — $25"
+    },
+    {
+      "rule_id": "meal_cap_lunch",
+      "section": "§2",
+      "check_type": "meal_total_cap",
+      "meal_type": "lunch",
+      "threshold": 35,
+      "violation_status": "flagged",
+      "source_quote": "Lunch — $35"
+    },
+    {
+      "rule_id": "meal_cap_dinner",
+      "section": "§2",
+      "check_type": "meal_total_cap",
+      "meal_type": "dinner",
+      "threshold": 75,
+      "violation_status": "flagged",
+      "source_quote": "Dinner — $75"
+    },
+    {
+      "rule_id": "high_cost_city_meal",
+      "section": "§2",
+      "check_type": "meal_high_cost_city_cap",
+      "multiplier": 1.2,
+      "violation_status": "flagged",
+      "source_quote": "High-cost city — meal caps follow Lodging Tier 1 list per TEP-004 §3."
+    },
+    {
+      "rule_id": "incidental_under_10",
+      "section": "§8",
+      "check_type": "incidental_not_meal",
+      "threshold": 10,
+      "violation_status": "compliant",
+      "source_quote": "Snacks, coffees, and small purchases under $10 are not meals for cap purposes."
+    },
+    {
+      "rule_id": "client_entertainment_breakfast",
+      "section": "§4",
+      "check_type": "client_entertainment_meal_cap",
+      "meal_type": "breakfast",
+      "threshold": 40,
+      "violation_status": "flagged",
+      "source_quote": "Client entertainment breakfast — elevated cap applies with documented external attendees."
+    },
+    {
+      "rule_id": "client_entertainment_lunch",
+      "section": "§4",
+      "check_type": "client_entertainment_meal_cap",
+      "meal_type": "lunch",
+      "threshold": 60,
+      "violation_status": "flagged",
+      "source_quote": "Client entertainment lunch — elevated cap applies with documented external attendees."
+    },
+    {
+      "rule_id": "client_entertainment_dinner",
+      "section": "§4",
+      "check_type": "client_entertainment_meal_cap",
+      "meal_type": "dinner",
+      "threshold": 150,
+      "violation_status": "flagged",
+      "source_quote": "Client entertainment dinner — up to $150 per person with external attendees documented."
+    },
+    {
+      "rule_id": "multiple_meals_same_day",
+      "section": "§2",
+      "check_type": "multiple_meals_same_day",
+      "violation_status": "flagged",
+      "source_quote": "Multiple meals on the same calendar day may be subject to combined-cap review."
+    },
+    {
+      "rule_id": "tip_cap_20",
+      "section": "§3",
+      "check_type": "tip_percent_cap",
+      "threshold_percent": 20,
+      "violation_status": "flagged",
+      "source_quote": "Tips above 20% of the pre-tax meal total are considered personal and are not reimbursable."
+    }
+  ]
+}
