@@ -2,7 +2,12 @@
 
 AI-assisted expense pre-review for finance reviewers: ingest receipts and trip context, surface per-line compliance verdicts with cited policy quotes, support human overrides, and answer ad-hoc policy questions with **grounded citations** (or refusal when out of scope). **Humans always make the final decision.**
 
-**Live URL:** _Deploy to Railway/Render — see [PLAN.md](PLAN.md)_
+**Live URL:** https://suppliers-wallpaper-supervisors-contributed.trycloudflare.com/
+
+Long-running actions (pre-review and Policy Q&A) use **background jobs + client polling** so each HTTP request finishes in seconds — required for Cloudflare quick tunnels (~100s origin limit). See [§5 Background jobs and polling](#5-background-jobs-and-polling-long-http--public-demo).
+
+**Testing tip:** Upload **one receipt** first and run pre-review before uploading **multiple receipts together** — each extra file adds many LLM calls and is much slower on free models.
+
 ---
 
 ## How to run locally
@@ -16,7 +21,17 @@ AI-assisted expense pre-review for finance reviewers: ingest receipts and trip c
 
 ### LLM providers (reviewer setup)
 
-The review pipeline uses a **LangGraph multi-agent** flow (classifier + several policy agents per receipt). That means **multiple LLM calls per submission**, so **paid models are strongly recommended** for reliable testing. Free OpenRouter models are supported as a default but often hit rate limits (429).
+The review pipeline uses a **LangGraph multi-agent** flow (classifier + several policy agents per receipt). That means **multiple LLM calls per submission** (often **30–40+** for a multi-receipt upload).
+
+**Use fast or paid models for demos.** The live demo and local Docker default to **free OpenRouter** models when only `OPENROUTER_API_KEY` is set. That works for a smoke test but is **slow** and hits **429 rate limits** easily — especially with parallel work (`REVIEW_MAX_CONCURRENCY`, default `4`). When rate-limited, the API falls back across models and retries, which stretches review time further.
+
+| Setup | Speed / reliability |
+|-------|---------------------|
+| **Free OpenRouter** (default if no other key) | Slow; frequent rate limits; avoid large multi-receipt runs |
+| **Paid mini-tier** (`OPENAI_API_KEY`, `GOOGLE_API_KEY`, `ANTHROPIC_API_KEY`, etc.) | **Recommended** for graders — faster responses, fewer 429s |
+| Lower `REVIEW_MAX_CONCURRENCY` in `.env` (e.g. `2`) | Reduces parallel LLM pressure on free tiers (slower wall-clock, fewer 429s) |
+
+**To test the UI:** try uploading **one receipt** first, run pre-review, then upload **multiple receipts all together** once that works.
 
 **Default: `LLM_PROVIDER=auto`** — set **one** API key and start the app. Models are preconfigured per provider.
 
@@ -68,6 +83,12 @@ This removes Docker volumes:
 | Weaviate (internal) | http://localhost:8080 |
 
 **No Postgres URL, no cloud DB signup.** Policies and sample receipts are mounted from `./policies` and `./submissions` in the image. On first startup the API seeds employees, builds the policy vector index in **Weaviate**, and persists submissions in a local **SQLite** file under `storage/`.
+
+### Tips for testing the UI
+
+1. **Start with one receipt** — On **New submission**, create the trip, upload **a single receipt**, then **Upload & run pre-review**. Confirm verdicts and Policy Q&A before uploading **multiple receipts in one batch** (each extra receipt adds extract + classify + several agent LLM calls).
+2. **Prefer a paid/fast LLM key** in `.env` for review demos (see [LLM providers](#llm-providers-reviewer-setup)). Free OpenRouter is fine for a quick look but slow and rate-limit prone under parallelism.
+3. **Pre-review runs in the background** — the button returns quickly; the UI polls until `reviewed` (may take several minutes on free models). See [§5 Background jobs and polling](#5-background-jobs-and-polling-long-http--public-demo).
 
 ### Local Python venv (backend / eval)
 
@@ -126,7 +147,7 @@ Output is JSON on stdout (`passed`, `total`, `results[]`). Exit code `0` only if
 | `POLICIES_PATH` | No | Policy PDF directory |
 | `SUBMISSIONS_PATH` | No | Sample submissions |
 | `STORAGE_PATH` | No | Uploaded receipt storage |
-| `REVIEW_MAX_CONCURRENCY` | No | Max parallel receipt extractions + policy LLM calls (default `4`) |
+| `REVIEW_MAX_CONCURRENCY` | No | Max parallel receipt extractions + policy LLM calls (default `4`). Use `2` on **free** tiers to reduce 429s; paid models tolerate `4` better |
 
 **Demo screenshots:** [end of README](#demo-screenshots) (files in [`results/`](results/)).
 
@@ -163,7 +184,30 @@ I moved to a **hybrid** design:
 **Problem:** sequential review of 6+ receipts × several agents → **504 gateway timeouts**.  
 **Change:** `review_line_item_async` — classify once, `asyncio.gather` on policy agents; parallel receipts capped by `REVIEW_MAX_CONCURRENCY`. LangGraph (`review_graph.py`) remains as a reference graph; the live `/review` endpoint uses the async path.
 
-### 5. Why SQLite and Weaviate locally (not Postgres + pgvector on day one)
+### 5. Background jobs and polling (long HTTP / public demo)
+
+**Problem:** Even with parallel agents, a full submission review can run **several minutes** (many LLM calls). A single blocking `POST` works on localhost (nginx allows 600s) but fails on **Cloudflare quick tunnels** (~**100s** origin timeout → HTTP **524**). Policy Q&A (RAG + one LLM) is shorter but can still exceed the limit on cold start or rate-limit retries.
+
+**Options considered:**
+
+| Approach | Verdict |
+|----------|---------|
+| **Increase tunnel timeout** | Not configurable on `trycloudflare.com` quick tunnels. |
+| **Stream heartbeat chunks** on one request | Possible, but fragile through proxies; frontend must parse streams. |
+| **Background job + polling** | **Chosen** — each HTTP call is short; works on tunnel, localhost, and matches production shape. |
+
+**What we ship:**
+
+| Action | Start (returns immediately) | Poll until done |
+|--------|----------------------------|-----------------|
+| **Pre-review** | `POST /api/submissions/{id}/review` → `{ status: "processing" }` | `GET /api/submissions/{id}` every ~3s until `reviewed` or `failed` |
+| **Policy Q&A** | `POST /api/policy/chat` → `{ job_id, status: "processing" }` | `GET /api/policy/chat/jobs/{job_id}` every ~3s until `completed` or `failed` |
+
+**Upload** stays a normal request (fast multipart). The UI shows loading state while polling; submission detail auto-refreshes if status is already `processing`.
+
+**Trade-off:** More API round-trips and slightly more complex UI — acceptable for a demo and the same pattern as production (queue + status endpoint) without Redis/SQS in v1.
+
+### 6. Why SQLite and Weaviate locally (not Postgres + pgvector on day one)
 
 I split persistence into **two jobs** on purpose:
 
@@ -176,7 +220,7 @@ I split persistence into **two jobs** on purpose:
 
 **Embeddings:** local **`all-MiniLM-L6-v2`** (384-dim) so evaluators need **no embedding API key**; chat LLM provider stays independent.
 
-### 6. UX and honesty
+### 7. UX and honesty
 
 - **One line item per receipt** — matches the brief’s sample folders (`submissions/*/receipts/`).
 - **Verdict-first UI** — no dev pipeline log in the reviewer view.
@@ -250,7 +294,7 @@ Today’s stack is optimized for **evaluators cloning the repo**. At ~10k submis
 
 | Concern | Approach |
 |---------|----------|
-| **HTTP timeouts** | Already mitigated: parallel receipts + agents (`review_line_item_async`, nginx 600s). Production: **async jobs** — `POST /review` enqueues work, UI polls status |
+| **HTTP timeouts** | **Shipped:** `POST /review` and `POST /policy/chat` return immediately; UI polls status (~3s). Parallel agents (`review_line_item_async`) reduce wall-clock; nginx 600s for local. Production: dedicated workers + same poll/queue pattern at scale |
 | **API throughput** | Horizontally scale stateless FastAPI behind a load balancer |
 | **Review workers** | Dedicated worker pool; `REVIEW_MAX_CONCURRENCY` per worker; global cap on LLM RPM |
 | **Database** | **Postgres on RDS** (multi-AZ); connection pooling (PgBouncer); indexes on `submission_id`, `employee_id`, `created_at` |
@@ -276,7 +320,7 @@ On **New submission → Upload receipts**, the control explicitly allows:
 accept=".pdf,.png,.jpg,.jpeg,.txt"
 ```
 
-Copy on the page: *“PDF, JPG, PNG, or TXT — one line item per receipt.”* Users can select **multiple files** in one go (mixed formats allowed).
+Copy on the page: *“PDF, JPG, PNG, or TXT — one line item per receipt.”* Users can select **multiple files** in one go (mixed formats allowed). **For first-time testing, upload one receipt**, run pre-review, then try multi-file uploads once the pipeline looks correct.
 
 ### Production / Docker behavior (same code path as local)
 
@@ -316,7 +360,7 @@ The brief’s six capabilities, eval harness, README, and deployable demo are in
 
 ### Platform & scale (10k+ submissions/day)
 
-- **Async review jobs** — queue + workers so HTTP returns immediately; UI polls status.
+- **Async review jobs at scale** — v1 uses in-process background tasks + polling; production adds SQS/workers while keeping the same client contract.
 - **AWS RDS (Postgres)** — HA transactional store for employees, submissions, verdicts, overrides.
 - **Managed vector DB (e.g. Pinecone)** — HA policy index, separate from app DB.
 - **S3** — durable receipt object storage with lifecycle rules.
@@ -439,8 +483,8 @@ docker compose up --build -d
 ```
 
 1. **Index:** Policy PDFs under `policies/` are parsed (Unstructured API → PyMuPDF fallback), split into TEP/SEC chunks, embedded locally with **all-MiniLM-L6-v2**, stored in **Weaviate** (`doc_id`, `section`, `content` + vector).
-2. **Retrieve (hybrid):** `POST /api/policy/chat` uses **Weaviate hybrid search** — **BM25** + **vector** fused with `alpha` (default `0.5`).
-3. **Answer:** LLM synthesizes an answer **only from retrieved excerpts** with citations.
+2. **Retrieve (hybrid):** `POST /api/policy/chat` starts a background job; Weaviate hybrid search — **BM25** + **vector** fused with `alpha` (default `0.5`).
+3. **Answer:** LLM synthesizes an answer **only from retrieved excerpts** with citations; UI polls `GET /api/policy/chat/jobs/{job_id}` until complete (see [§5](#5-background-jobs-and-polling-long-http--public-demo)).
 4. **Refuse:** Off-topic keywords (HR/payroll), low retrieval score, or missing evidence → `refused: true` (no fabrication).
 
 Noise documents (HR, records retention) are excluded from indexing (`TEP-*`, `SEC-301` only).
@@ -483,7 +527,7 @@ Implementation: `backend/app/llm/embeddings.py` → used by `policy_indexer.py` 
 
 ### Why SQLite + Weaviate (local-first)
 
-See [Design story — §5 Why SQLite and Weaviate](#design-story--how-the-architecture-evolved) for the full reasoning. Short version:
+See [Design story — §6 Why SQLite and Weaviate](#6-why-sqlite-and-weaviate-locally-not-postgres--pgvector-on-day-one) for the full reasoning. Short version:
 
 - **SQLite** = submissions, verdicts, overrides (relational, auditable, survives restart).
 - **Weaviate** = policy PDF chunks only (hybrid BM25 + vector for Q&A).
@@ -535,7 +579,9 @@ flowchart TB
 
 ### Review pipeline (per receipt)
 
-**Production path** (`POST /api/submissions/{id}/review`): parallel receipts + `review_line_item_async` in `graph/review_workflow.py`.
+**Production path:** `POST /api/submissions/{id}/review` starts a **background job** (HTTP returns in ~1s); the UI **polls** `GET /api/submissions/{id}` until `reviewed`. Work inside the job: parallel receipts + `review_line_item_async` in `graph/review_workflow.py`.
+
+**Policy Q&A:** `POST /api/policy/chat` starts a job; poll `GET /api/policy/chat/jobs/{job_id}` for the RAG + LLM result.
 
 **Reference path** (eval / LangGraph): `backend/app/graph/review_graph.py` — same stages, LangGraph `Send` for agent fan-out.
 

@@ -27,6 +27,7 @@ class SubmissionStatus(str, enum.Enum):
     draft = "draft"
     processing = "processing"
     reviewed = "reviewed"
+    failed = "failed"
 
 
 class Employee(Base):

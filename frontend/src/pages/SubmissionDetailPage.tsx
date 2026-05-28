@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { api, SubmissionDetail } from "../api";
+import { api, runSubmissionReview, SubmissionDetail } from "../api";
 import LoaderButton from "../components/LoaderButton";
 
 function statusClass(s: string) {
@@ -28,14 +28,29 @@ export default function SubmissionDetailPage() {
 
   useEffect(load, [id]);
 
+  useEffect(() => {
+    if (!sub || sub.status !== "processing" || reviewLoading) return;
+    const interval = setInterval(async () => {
+      try {
+        const updated = await api<SubmissionDetail>(`/submissions/${id}`);
+        setSub(updated);
+        if (updated.status !== "processing") clearInterval(interval);
+      } catch {
+        /* keep polling */
+      }
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [sub?.status, id, reviewLoading]);
+
   async function rerunReview() {
     setReviewLoading(true);
     setError("");
     try {
-      await api(`/submissions/${id}/review`, { method: "POST" });
-      load();
+      const updated = await runSubmissionReview(Number(id));
+      setSub(updated);
     } catch (e) {
       setError(String(e));
+    } finally {
       setReviewLoading(false);
     }
   }
@@ -118,7 +133,14 @@ export default function SubmissionDetailPage() {
           Receipt verdicts — compliant: {statusCounts.compliant || 0}, flagged: {statusCounts.flagged || 0},
           rejected: {statusCounts.rejected || 0}, needs_review: {statusCounts.needs_review || 0}
         </p>
-        <LoaderButton loading={reviewLoading} variant="secondary" onClick={rerunReview}>
+        {sub.status === "processing" && (
+          <p className="meta-row">Pre-review in progress… this may take several minutes.</p>
+        )}
+        <LoaderButton
+          loading={reviewLoading || sub.status === "processing"}
+          variant="secondary"
+          onClick={rerunReview}
+        >
           Re-run pre-review
         </LoaderButton>
       </div>

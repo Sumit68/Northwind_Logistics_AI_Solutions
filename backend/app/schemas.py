@@ -121,3 +121,20 @@ class PolicyChatResponse(BaseModel):
     citations: list[PolicyCitation] = []
     refused: bool = False
     retrieval_confidence: float = 0.0
+
+
+class AsyncJobStart(BaseModel):
+    job_id: str
+    status: str = "processing"
+
+
+class AsyncJobStatus(BaseModel):
+    job_id: str
+    status: str
+    result: PolicyChatResponse | None = None
+    error: str | None = None
+
+
+class ReviewStartResponse(BaseModel):
+    submission_id: int
+    status: str = "processing"

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { api, Employee } from "../api";
+import { api, Employee, runSubmissionReview } from "../api";
 import LoaderButton from "../components/LoaderButton";
 
 function formatTripDates(start: string, end: string) {
@@ -60,7 +60,7 @@ export default function NewSubmissionPage() {
       const fd = new FormData();
       Array.from(files).forEach((f) => fd.append("files", f));
       await fetch(`/api/submissions/${submissionId}/receipts`, { method: "POST", body: fd });
-      await api(`/submissions/${submissionId}/review`, { method: "POST" });
+      await runSubmissionReview(submissionId);
       nav(`/submissions/${submissionId}`);
     } catch (e) {
       setError(String(e));

@@ -221,6 +221,11 @@ textarea:focus {
   color: #475569;
 }
 
+.badge.failed {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
 .meta-row {
   display: flex;
   flex-wrap: wrap;

@@ -1,27 +1,16 @@
 import { useState } from "react";
-import { api } from "../api";
+import { askPolicyChat, PolicyChatResult } from "../api";
 import LoaderButton from "../components/LoaderButton";
-
-type ChatResult = {
-  answer: string;
-  refused: boolean;
-  retrieval_confidence: number;
-  citations: { doc_id: string; section: string; quote: string }[];
-};
 
 export default function PolicyChatPage() {
   const [message, setMessage] = useState("What is the dinner cap for solo travel?");
-  const [result, setResult] = useState<ChatResult | null>(null);
+  const [result, setResult] = useState<PolicyChatResult | null>(null);
   const [busy, setBusy] = useState(false);
 
   async function ask() {
     setBusy(true);
     try {
-      const r = await api<ChatResult>("/policy/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message }),
-      });
+      const r = await askPolicyChat(message);
       setResult(r);
     } finally {
       setBusy(false);
@@ -33,9 +22,10 @@ export default function PolicyChatPage() {
       <h2>Policy Q&amp;A</h2>
       <p>Grounded answers from the travel &amp; expense policy library. Out-of-scope questions are refused.</p>
       <textarea rows={3} value={message} onChange={(e) => setMessage(e.target.value)} />
-      <LoaderButton loading={busy} disabled={!message.trim()} onClick={ask}>
+      <LoaderButton loading={busy} disabled={!message.trim() || busy} onClick={ask}>
         Ask policy librarian
       </LoaderButton>
+      {busy && <p className="meta-row">Searching policy library and generating answer…</p>}
       {result && (
         <div style={{ marginTop: "1rem" }}>
           {result.refused ? (

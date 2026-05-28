@@ -29,6 +29,7 @@ export default function HistoryPage() {
         <option value="draft">draft</option>
         <option value="processing">processing</option>
         <option value="reviewed">reviewed</option>
+        <option value="failed">failed</option>
       </select>
       <table style={{ width: "100%", marginTop: "1rem" }}>
         <thead>
