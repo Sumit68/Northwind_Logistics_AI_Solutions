@@ -2,7 +2,7 @@
 
 AI-assisted expense pre-review for finance reviewers: ingest receipts and trip context, surface per-line compliance verdicts with cited policy quotes, support human overrides, and answer ad-hoc policy questions with **grounded citations** (or refusal when out of scope). **Humans always make the final decision.**
 
-**Live URL:** https://suppliers-wallpaper-supervisors-contributed.trycloudflare.com/
+**Live URL:** https://installations-atom-cancelled-introduces.trycloudflare.com
 
 Long-running actions (pre-review and Policy Q&A) use **background jobs + client polling** so each HTTP request finishes in seconds — required for Cloudflare quick tunnels (~100s origin limit). See [§5 Background jobs and polling](#5-background-jobs-and-polling-long-http--public-demo).
 
